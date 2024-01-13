@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-function TrafficLight() {
+const TrafficLight = () => {
   const [color, setColor] = useState("red");
 
   const changeColor = (newColor) => {
-    setColor(newColor); 
+    setColor(newColor);
   };
+
+  const renderLight = (lightColor) => (
+    <div
+      className={`light ${lightColor} ${color === lightColor ? "on" : ""}`}
+      onClick={() => changeColor(lightColor)}
+    ></div>
+  );
 
   return (
     <div className="traffic-light">
-      <div
-        className={`light red ${color === "red" ? "on" : ""}`}
-        onClick={() => changeColor("red")}
-      ></div>
-      <div
-        className={`light yellow ${color === "yellow" ? "on" : ""}`}
-        onClick={() => changeColor("yellow")}
-      ></div>
-      <div
-        className={`light green ${color === "green" ? "on" : ""}`}
-        onClick={() => changeColor("green")}
-      ></div>
+      {renderLight("red")}
+      {renderLight("yellow")}
+      {renderLight("green")}
     </div>
   );
-}
+};
 
-ReactDOM.render(<TrafficLight />, document.querySelector('#app'));
+ReactDOM.render(<TrafficLight />, document.getElementById('app'));
 
 export default TrafficLight;
